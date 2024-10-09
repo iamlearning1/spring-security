@@ -17,7 +17,7 @@ class SecurityConfig {
                 .requestMatchers("/notices").permitAll()
         }
 
-        http.formLogin { }
+        http.formLogin { it.disable() }
         http.httpBasic { }
 
         return http.build()
