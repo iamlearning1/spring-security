@@ -14,7 +14,7 @@ class SecurityConfig {
         http.authorizeHttpRequests {
             requests -> requests
                 .requestMatchers("/accounts/**").authenticated()
-                .requestMatchers("/notices").permitAll()
+                .requestMatchers("/notices", "/error").permitAll()
         }
 
         http.formLogin { it.disable() }
