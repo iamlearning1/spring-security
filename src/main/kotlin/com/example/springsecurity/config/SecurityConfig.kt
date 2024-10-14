@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.factory.PasswordEncoderFactories
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 
@@ -28,9 +31,14 @@ class SecurityConfig {
 
     @Bean
     fun userDetailsService(): UserDetailsService {
-        val user = User.withUsername("user").password("{noop}user12345").authorities("read").build()
-        val admin = User.withUsername("admin").password("{noop}admin12345").authorities("admin").build()
+        val user = User.withUsername("user").password("{bcrypt}\$2y\$10\$5/1OrGef3j2m93DYsSO0A.LSloCoTlgpEpEpJ9aS/7EXpOMn6JYqW").authorities("read").build()
+        val admin = User.withUsername("admin").password("{bcrypt}\$2y\$10$/zH2EkJqdDZiJYkMs8ioasOWTz/bk8TP24v2ka/wTc0fRc5UEbvFgS").authorities("admin").build()
 
         return InMemoryUserDetailsManager(user, admin)
+    }
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder()
     }
 }
