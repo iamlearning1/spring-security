@@ -4,14 +4,13 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.authentication.password.CompromisedPasswordChecker
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.provisioning.InMemoryUserDetailsManager
+import org.springframework.security.provisioning.JdbcUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.password.HaveIBeenPwnedRestApiPasswordChecker
+import javax.sql.DataSource
 
 @Configuration
 class SecurityConfig {
@@ -32,11 +31,8 @@ class SecurityConfig {
     }
 
     @Bean
-    fun userDetailsService(): UserDetailsService {
-        val user = User.withUsername("user").password("{bcrypt}\$2y\$10\$9zPaiFzoL5yVLEeGmM37N.SlBbjnpCH7vQ8K4magXWXyYJ8Qy7qX6").authorities("read").build()
-        val admin = User.withUsername("admin").password("{bcrypt}\$2y\$10$/zH2EkJqdDZiJYkMs8ioasOWTz/bk8TP24v2ka/wTc0fRc5UEbvFgS").authorities("admin").build()
-
-        return InMemoryUserDetailsManager(user, admin)
+    fun userDetailsService(dataSource: DataSource): UserDetailsService {
+        return JdbcUserDetailsManager(dataSource)
     }
 
     @Bean
