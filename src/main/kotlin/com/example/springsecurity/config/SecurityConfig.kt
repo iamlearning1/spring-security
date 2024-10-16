@@ -26,15 +26,15 @@ class SecurityConfig {
         return http.build()
     }
 
-//    @Bean
-//    fun userDetailsService(dataSource: DataSource): UserDetailsService {
-//        return JdbcUserDetailsManager(dataSource)
-//    }
-
     @Bean
     fun passwordEncoder(): PasswordEncoder {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder()
     }
+
+//    @Bean
+//    fun userDetailsService(dataSource: DataSource): UserDetailsService {
+//        return JdbcUserDetailsManager(dataSource)
+//    }
 
 //    @Bean
 //    fun compromisedPasswordChecker(): CompromisedPasswordChecker {

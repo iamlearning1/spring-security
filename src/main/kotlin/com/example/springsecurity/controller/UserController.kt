@@ -21,12 +21,10 @@ class UserController(
     fun registerUser(
         @RequestBody customer: Customer,
     ): ResponseEntity<String> {
-        try {
-            val password = passwordEncoder.encode(customer.password)
-            customerRepository.save(customer.copy(password = password))
-            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully")
-        } catch (e: Exception) {
-            return ResponseEntity.status(400).body(e.message)
-        }
+        val password = passwordEncoder.encode(customer.password)
+
+        customerRepository.save(customer.copy(password = password))
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully")
     }
 }
