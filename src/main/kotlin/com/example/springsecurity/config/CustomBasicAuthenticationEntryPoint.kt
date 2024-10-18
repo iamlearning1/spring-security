@@ -15,6 +15,10 @@ class CustomBasicAuthenticationEntryPoint : AuthenticationEntryPoint {
         authException: AuthenticationException?
     ) {
         response!!.setHeader("error-reason", "Auth error")
-        response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.reasonPhrase)
+
+        response.status = HttpStatus.UNAUTHORIZED.value()
+        response.contentType = "application/json;charset=UTF-8"
+
+        response.writer.write("{ message: \"Something went wrong\" }")
     }
 }
