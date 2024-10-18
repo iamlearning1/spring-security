@@ -13,6 +13,9 @@ class SecurityConfig {
     @Bean
     @Throws(Exception::class)
     fun defaultSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
+        // enables https protocol for all requests
+        // http.requiresChannel { channelHandler -> channelHandler.anyRequest().requiresSecure() }
+
         http.authorizeHttpRequests {
             requests -> requests
                 .requestMatchers("/accounts/**").authenticated()
