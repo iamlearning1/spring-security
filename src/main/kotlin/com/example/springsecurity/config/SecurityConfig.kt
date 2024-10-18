@@ -24,7 +24,7 @@ class SecurityConfig {
 
         http.formLogin { it.disable() }
         http.csrf { it.disable() }
-        http.httpBasic { }
+        http.httpBasic { it.authenticationEntryPoint(CustomBasicAuthenticationEntryPoint()) }
 
         return http.build()
     }
