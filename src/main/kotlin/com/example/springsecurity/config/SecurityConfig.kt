@@ -19,12 +19,14 @@ class SecurityConfig {
         http.authorizeHttpRequests {
             requests -> requests
                 .requestMatchers("/accounts/**").authenticated()
-                .requestMatchers("/notices", "/error", "/users/**").permitAll()
+                .requestMatchers("/notices", "/error", "/users/**", "/invalid-session").permitAll()
         }
 
         http.formLogin { it.disable() }
         http.csrf { it.disable() }
         http.httpBasic { it.authenticationEntryPoint(CustomBasicAuthenticationEntryPoint()) }
+
+        http.sessionManagement { it.invalidSessionUrl("/invalid-session") }
 
         return http.build()
     }
