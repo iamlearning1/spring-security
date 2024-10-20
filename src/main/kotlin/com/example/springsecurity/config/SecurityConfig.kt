@@ -34,6 +34,7 @@ class SecurityConfig {
             it
                 .csrfTokenRequestHandler(csrfTokenRequestAttributeHandler)
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .ignoringRequestMatchers("/notices", "/error")
         }
         http.httpBasic { it.authenticationEntryPoint(CustomBasicAuthenticationEntryPoint()) }
 
