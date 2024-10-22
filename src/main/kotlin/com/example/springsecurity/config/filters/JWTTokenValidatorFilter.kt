@@ -41,16 +41,12 @@ class JWTTokenValidatorFilter : OncePerRequestFilter() {
                         .payload
 
                     val username = claims["username"] as String
-
-                    // simplify how to get the role
                     val authorities = listOf<GrantedAuthority>(SimpleGrantedAuthority(claims["authorities"].toString()))
 
                     val authentication = UsernamePasswordAuthenticationToken(username, null, authorities)
 
                     SecurityContextHolder.getContext().authentication = authentication
                 }
-
-
             } catch (ex: Exception) {
                 throw BadCredentialsException("Invalid token")
             }

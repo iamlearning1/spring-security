@@ -23,13 +23,13 @@ class SecurityConfig {
 
         http.addFilterBefore(JWTTokenValidatorFilter(), BasicAuthenticationFilter::class.java)
 
-        http.authorizeHttpRequests {
-            requests -> requests
-                .requestMatchers("/accounts/**")
-                .hasAnyRole("ADMIN")
-                .requestMatchers("/notices", "/error", "/users/**")
-                .permitAll()
-        }
+//        http.authorizeHttpRequests {
+//            requests -> requests
+////                .requestMatchers("/accounts/**")
+////                .hasAnyRole("ADMIN")
+//                .requestMatchers("/notices", "/error", "/users/**")
+//                .permitAll()
+//        }
 
         http.formLogin { it.disable() }
         http.csrf { it.disable() }
